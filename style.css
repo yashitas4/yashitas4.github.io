@@ -1,9 +1,11 @@
 :root {
-  --text: #1c1c1c;
-  --muted: #555555;
-  --bg: #ffffff;
-  --rule: #e4e4e4;
-  --accent: #0f5e63; /* deep teal, ~7.5:1 on white */
+  --text: #222020;
+  --muted: #5c5752;
+  --bg: #fbf8f3;       /* warm cream */
+  --surface: #ffffff;
+  --rule: #e8e1d6;
+  --accent: #0f5e63;   /* deep teal, ~7:1 on cream */
+  --accent-soft: #e3efee;
   --serif: Georgia, "Times New Roman", serif;
   --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
@@ -26,7 +28,7 @@ body {
 }
 
 .wrap {
-  max-width: 40rem;
+  max-width: 42rem;
   margin: 0 auto;
   padding: 0 1.25rem;
 }
@@ -43,13 +45,17 @@ a:hover {
 a:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
+  border-radius: 2px;
 }
 
 /* Header and navigation */
 .site-header {
   position: sticky;
   top: 0;
-  background: var(--bg);
+  z-index: 1;
+  background: rgba(251, 248, 243, 0.92);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   border-bottom: 1px solid var(--rule);
 }
 
@@ -67,6 +73,7 @@ a:focus-visible {
   margin: 0;
   font-family: var(--serif);
   font-size: 1.1rem;
+  font-style: italic;
 }
 
 .name a {
@@ -92,41 +99,138 @@ nav a:hover {
   text-decoration: underline;
 }
 
-/* Main content */
-main {
+/* Hero */
+main.wrap {
   padding-top: 4rem;
   padding-bottom: 3rem;
 }
 
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: 4rem;
+  padding-bottom: 2.5rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.eyebrow {
+  margin: 0 0 0.5rem;
+  color: var(--accent);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.hero-art {
+  flex: none;
+  width: 7.5rem;
+  height: 7.5rem;
+}
+
+.art-bg {
+  fill: var(--accent-soft);
+}
+
+.art-line {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Headings */
 h1,
-h2 {
+h2,
+h3 {
   font-family: var(--serif);
   font-weight: normal;
   line-height: 1.2;
 }
 
 h1 {
-  margin: 0 0 3rem;
-  font-size: 2.75rem;
+  margin: 0;
+  font-size: 3rem;
 }
 
 h2 {
-  margin: 0 0 1rem;
+  margin: 0 0 1.25rem;
+  font-size: 1.75rem;
+}
+
+h3 {
+  margin: 1.75rem 0 0.75rem;
+  color: var(--muted);
+  font-size: 1.1rem;
+  font-style: italic;
+}
+
+.mark {
   color: var(--accent);
-  font-size: 1.6rem;
+  font-size: 0.8em;
+  vertical-align: 0.1em;
 }
 
 section {
-  margin-bottom: 3.5rem;
+  margin-bottom: 4rem;
   scroll-margin-top: 5rem;
 }
 
-ul {
-  padding-left: 1.25rem;
+.lead {
+  font-family: var(--serif);
+  font-size: 1.3rem;
+  line-height: 1.5;
 }
 
-li + li {
-  margin-top: 0.4rem;
+/* Interest chips */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chips li {
+  padding: 0.4rem 0.95rem;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  font-size: 0.95rem;
+}
+
+/* Project cards */
+.cards {
+  display: grid;
+  gap: 0.85rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: card;
+}
+
+.cards li {
+  position: relative;
+  padding: 1rem 1.25rem 1rem 3.5rem;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--accent);
+  border-radius: 6px;
+  counter-increment: card;
+}
+
+.cards li::before {
+  content: "0" counter(card);
+  position: absolute;
+  left: 1.1rem;
+  top: 1rem;
+  color: var(--accent);
+  font-family: var(--serif);
+  font-style: italic;
 }
 
 /* Footer */
@@ -134,6 +238,7 @@ li + li {
   border-top: 1px solid var(--rule);
   color: var(--muted);
   font-size: 0.9rem;
+  text-align: center;
 }
 
 .site-footer .wrap {
@@ -147,17 +252,38 @@ li + li {
     font-size: 1rem;
   }
 
-  main {
+  .site-header {
+    position: static;
+  }
+
+  .eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+  }
+
+  main.wrap {
     padding-top: 2.5rem;
   }
 
+  .hero {
+    margin-bottom: 3rem;
+  }
+
+  .hero-art {
+    width: 4.5rem;
+    height: 4.5rem;
+  }
+
   h1 {
-    margin-bottom: 2rem;
-    font-size: 2.1rem;
+    font-size: 2.2rem;
+  }
+
+  .lead {
+    font-size: 1.15rem;
   }
 
   section {
-    margin-bottom: 2.5rem;
-    scroll-margin-top: 7rem;
+    margin-bottom: 3rem;
+    scroll-margin-top: 1rem;
   }
 }
